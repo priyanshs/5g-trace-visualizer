@@ -1,3 +1,5 @@
+!! THIS REQUIRES WIRESHARK 3.6 TO GENERATE DIAGRAMS ACCURATELY !! 
+
 # 5G Trace Visualizer
 
 * Table of contents
