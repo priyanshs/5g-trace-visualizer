@@ -1,0 +1,4 @@
+                               mean_procedure_time_ms  min_procedure_time_ms  max_procedure_time_ms  count
+name                                                                                                      
+NAS PDU Session Establishment                19.23425                  8.402                 48.113      4
+NAS UE Registration                          71.07075                 17.965                226.401      4

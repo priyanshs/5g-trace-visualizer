@@ -911,6 +911,7 @@ def call_wireshark(wireshark_versions, platform, input_file_str, http2ports_stri
     wireshark_versions_list = [e.strip() for e in wireshark_versions.split(',')]
     output_files = []
     successful_wireshark_call = False
+    print(wireshark_versions_list)
     for wireshark_version in wireshark_versions_list:
         if wireshark_version == 'latest':
             wireshark_version = get_wireshark_portable_last_version()
@@ -957,12 +958,13 @@ def get_wireshark_portable_last_version():
 
 
 def get_wireshark_portable_folder(wireshark_version):
-    return os.path.join(os.path.dirname(
-        os.path.realpath(__file__)),
-        wireshark_folder,
-        'WiresharkPortable_{0}'.format(wireshark_version),
-        'App',
-        'Wireshark')
+    return "/Applications/Wireshark.app/Contents/MacOS/"
+    # return os.path.join(os.path.dirname(
+    #     os.path.realpath(__file__)),
+    #     wireshark_folder,
+    #     'WiresharkPortable_{0}'.format(wireshark_version),
+    #     'App',
+    #     'Wireshark')
 
 
 def call_wireshark_for_one_version(
@@ -976,11 +978,14 @@ def call_wireshark_for_one_version(
     logging.debug('Wireshark call for {0}. Version {1}, HTTP/2 ports: {2}'.format(input_file_str, wireshark_version,
                                                                                   http2ports_string))
     input_files = input_file_str.split(',')
+    print(input_files)
     merged = False
     if len(input_files) > 1:
         filename, file_extension = os.path.splitext(input_files[0])
         output_filename = '{0}_{2}_merged{1}'.format(filename, file_extension, wireshark_version)
+
         mergecap_path = os.path.join(get_wireshark_portable_folder(wireshark_version), 'mergecap')
+
         if wireshark_version == 'OS' and (platform == 'Linux'):
             mergecap_path = "/usr/bin/mergecap"
         elif wireshark_version == 'OS' and (platform != 'Linux'):
@@ -1011,8 +1016,11 @@ def call_wireshark_for_one_version(
             tshark_path = "/usr/bin/tshark"
         else:
             tshark_path = os.path.join('tshark')
+            print("adghjashjkhasd ",tshark_path)
     else:
         tshark_path = os.path.join(get_wireshark_portable_folder(wireshark_version), 'tshark')
+        print("asdkjhasdkj checkin",tshark_path)
+        tshark_path = "/Applications/Wireshark.app/Contents/MacOS/tshark"
     logging.debug('tshark path: {0}'.format(tshark_path))
 
     # Add folder check to make more understandable error messages

@@ -356,7 +356,16 @@ def read_xml_file_line_basis(xml_file):
 def calculate_procedure_length(packets_df, logging_level=logging.INFO):
     current_verbosity_level = trace_visualizer.application_logger.level
     trace_visualizer.application_logger.setLevel(logging_level)
-
+    print("359")
+    print(packets_df['summary'])
+    # procedure_frames = packets_df[
+    #     ((packets_df['summary'] == 'NAS Registration request (0x41)') & (
+    #         ~packets_df['msg_description'].str.contains(r'Security mode complete \(0x5e\)'))) |
+    #     (packets_df['summary'] == 'NAS Registration accept (0x42)') |
+    #     (packets_df['summary'] == 'NAS PDU session establishment request (0xc1)') |
+    #     (packets_df['summary'] == 'NAS PDU session establishment accept (0xc2)') |
+    #     (packets_df['summary_raw'].str.contains('HTTP/2'))
+    #     ].copy()
     procedure_frames = packets_df[
         ((packets_df['summary'] == 'NAS Registration request (0x41)') & (
             ~packets_df['msg_description'].str.contains(r'Security mode complete \(0x5e\)'))) |
@@ -364,8 +373,8 @@ def calculate_procedure_length(packets_df, logging_level=logging.INFO):
         (packets_df['summary'] == 'NAS PDU session establishment request (0xc1)') |
         (packets_df['summary'] == 'NAS PDU session establishment accept (0xc2)') |
         (packets_df['summary_raw'].str.contains('HTTP/2'))
-        ].copy()
-
+        ].copy()        
+    print("this is proc frams",procedure_frames)
     procedure_frames['AMF-UE-NGAP-ID'] = ''
     procedure_frames['RAN-UE-NGAP-ID'] = ''
     procedure_frames['HTTP_STREAM'] = ''
